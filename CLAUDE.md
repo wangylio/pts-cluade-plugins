@@ -10,16 +10,16 @@ claude plugin marketplace add https://it-gitlab.topscomm.com/xxxt/znzz/ai/pts-cl
 
 ### 安装插件
 ```bash
-claude plugin install encoding@pts-claude-plugins --scope project
-claude plugin install gitlab@pts-claude-plugins --scope project
-claude plugin install docx@pts-claude-plugins --scope project
+claude plugin install tops-encoding@pts-claude-plugins --scope project
+claude plugin install tops-git@pts-claude-plugins --scope project
+claude plugin install tops-docx@pts-claude-plugins --scope project
 ```
 
 ## 插件列表
 
-- **encoding** — 文件编码处理插件，用于处理读写文件过程中的文件编码问题
-- **gitlab** — GitLab 代码管理插件，提供 `commit`（规范提交代码）与 `push`（提交并推送代码）两个技能
-- **docx** — 文档撰写与转换插件，提供 `prd`、`hld`、`lld`、`um` 四个文档生成技能（输出 markdown）与 `md2docx` 转换技能（按 docx 模板样式生成 Word 文档）
+- **tops-encoding** — 文件编码处理插件，用于处理读写文件过程中的文件编码问题
+- **tops-git** — GitLab 代码管理插件，提供 `commit`（规范提交代码）与 `push`（提交并推送代码）两个技能
+- **tops-docx** — 文档撰写与转换插件，提供 `prd`、`hld`、`lld`、`um` 四个文档生成技能（输出 markdown）与 `md2docx` 转换技能（按 docx 模板样式生成 Word 文档）
 
 ## 开发说明
 
@@ -41,8 +41,8 @@ claude plugin install docx@pts-claude-plugins --scope project
 │       └── skills/
 │           └── {skill-name}/
 │               ├── SKILL.md     # 技能定义
-│               ├── scripts/     # 可选：技能附带的脚本（如 docx 的 md2docx.py）
-│               └── assets/      # 可选：技能附带的模板等资源（如 docx 模板）
+│               ├── scripts/     # 可选：技能附带的脚本（如 tops-docx 的 md2docx.py）
+│               └── assets/      # 可选：技能附带的模板等资源（如 tops-docx 模板）
 ├── CLAUDE.md                 # 项目说明（本文件）
 └── README.md                 # 项目介绍
 ```

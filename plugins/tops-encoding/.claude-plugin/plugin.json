@@ -1,0 +1,5 @@
+{
+  "name": "tops-encoding",
+  "description": "文件编码处理插件，用于处理读写文件过程中的文件编码问题",
+  "version": "1.0.1"
+}

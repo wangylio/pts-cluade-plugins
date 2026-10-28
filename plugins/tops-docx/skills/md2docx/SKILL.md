@@ -29,7 +29,7 @@ description: 把 markdown 文档按 docx 模板的样式转换为 Word 文档。
 
 ## 准备模板
 
-模板由使用者提供，建议放在 `plugins/docx/skills/md2docx/assets/template.docx`，也可用任意路径。
+模板由使用者提供，建议放在 `plugins/tops-docx/skills/md2docx/assets/template.docx`，也可用任意路径。
 
 模板需要具备的样式（名称可用于中文版 Word 的显示名）：
 
@@ -60,9 +60,9 @@ python "<skill目录>/scripts/md2docx.py" --input "<markdown文件>" --template 
 Windows 示例：
 
 ```bash
-python "E:\Github\pts-cluade-plugins\plugins\docx\skills\md2docx\scripts\md2docx.py" ^
+python "E:\Github\pts-cluade-plugins\plugins\tops-docx\skills\md2docx\scripts\md2docx.py" ^
   --input "docs\电能表参数透传\PRD-电能表参数透传.md" ^
-  --template "plugins\docx\skills\md2docx\assets\template.docx" ^
+  --template "plugins\tops-docx\skills\md2docx\assets\template.docx" ^
   --output "docs\电能表参数透传\PRD-电能表参数透传.docx"
 ```
 
@@ -81,7 +81,7 @@ python "E:\Github\pts-cluade-plugins\plugins\docx\skills\md2docx\scripts\md2docx
 
 ### frontmatter
 
-文件顶部可带 YAML frontmatter（`docx` 插件的四个文档技能默认会写入）：
+文件顶部可带 YAML frontmatter（`tops-docx` 插件的四个文档技能默认会写入）：
 
 ```yaml
 ---

@@ -3,7 +3,7 @@
 把 docx 模板放在本目录，建议命名为 `template.docx`：
 
 ```
-plugins/docx/skills/md2docx/assets/template.docx
+plugins/tops-docx/skills/md2docx/assets/template.docx
 ```
 
 模板的职责只有一个：**提供样式**。脚本以模板为底版加载，清空正文后按 markdown 追加内容，另存为新文件，不会修改模板本身。

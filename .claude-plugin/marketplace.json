@@ -2,25 +2,25 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "pts-claude-plugins",
   "description": "Topscomm PTS Claude Code Marketplace",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "owner": {
     "name": "wangyulai"
   },
   "plugins": [
     {
-      "name": "encoding",
+      "name": "tops-encoding",
       "description": "文件编码处理插件，用于处理读写文件过程中的文件编码问题",
-      "source": "./plugins/encoding"
+      "source": "./plugins/tops-encoding"
     },
     {
-      "name": "gitlab",
+      "name": "tops-git",
       "description": "GitLab 代码管理插件",
-      "source": "./plugins/gitlab"
+      "source": "./plugins/tops-git"
     },
     {
-      "name": "docx",
+      "name": "tops-docx",
       "description": "文档撰写与转换插件，提供 prd、hld、lld、um 文档生成技能与 md2docx 转换技能",
-      "source": "./plugins/docx"
+      "source": "./plugins/tops-docx"
     }
   ]
 }
