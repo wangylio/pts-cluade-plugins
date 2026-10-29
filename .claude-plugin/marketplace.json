@@ -2,7 +2,7 @@
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "pts-claude-plugins",
   "description": "Topscomm PTS Claude Code Marketplace",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "owner": {
     "name": "wangyulai"
   },
@@ -21,6 +21,11 @@
       "name": "tops-docx",
       "description": "文档撰写与转换插件，提供 prd、hld、lld、um 文档生成技能与 md2docx 转换技能",
       "source": "./plugins/tops-docx"
+    },
+    {
+      "name": "tops-tsd-reader",
+      "description": "TSD 加密 Office 文档读取插件，通过白名单程序（WPS）打开并提取正文",
+      "source": "./plugins/tops-tsd-reader"
     }
   ]
 }
