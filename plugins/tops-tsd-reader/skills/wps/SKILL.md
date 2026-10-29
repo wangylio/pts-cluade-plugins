@@ -45,6 +45,14 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "<skill目录>/scripts/read_
 
 输出 UTF-8 txt（`tsd_<N>.txt`），再用 Read 工具读。多个文件就逐个传 `-Index`，每个都起新进程。
 
+全部读完后清理临时输出（默认目录 `%TEMP%\tsd_read`）：
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File "<skill目录>/scripts/read_tsd.ps1" -Cleanup
+```
+
+`-Cleanup` 会删掉 `-OutDir` 整个目录；如果之前用过自定义 `-OutDir`，清理时用同一个值传进去。
+
 ## 硬性约束
 
 1. **一个文件一个应用实例**。同一实例连续打开多个加密文件，第二个起会把进程搞崩（`RPC 服务器不可用 0x800706BA`），之后全部报"未将对象引用设置到对象的实例"。这是最容易踩的坑。
@@ -53,6 +61,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "<skill目录>/scripts/read_
 4. **Excel 取 `Value2`**。WPS 的 COM 上 `Range.Text`、`Text2()` 会返回 `DBNull`。
 5. 一律只读打开，不保存、不回写原文件。
 6. 单文件卡住时 `taskkill /F /IM wps.exe`（表格是 `et.exe`）后重试。
+7. **用完即删**。输出的是解密后的明文，任务结束（含中途放弃）都要执行一次 `-Cleanup`，否则 `%TEMP%\tsd_read` 会一直堆积明文文件。
 
 ## 边界
 

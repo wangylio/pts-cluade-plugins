@@ -3,11 +3,22 @@ param(
     [int]$Index = 0,
     [string]$OutDir = (Join-Path $env:TEMP 'tsd_read'),
     [string]$Extensions = '.doc,.docx,.xls,.xlsx,.ppt,.pptx',
-    [switch]$List
+    [switch]$List,
+    [switch]$Cleanup
 )
 
 $ErrorActionPreference = 'Stop'
 $exts = @($Extensions.Split(',') | ForEach-Object { $_.Trim().ToLower() })
+
+if ($Cleanup) {
+    if (Test-Path $OutDir) {
+        Remove-Item -Recurse -Force $OutDir
+        Write-Output ('CLEANED: ' + $OutDir)
+    } else {
+        Write-Output ('CLEANED: (absent) ' + $OutDir)
+    }
+    exit 0
+}
 
 function Test-Tsd([string]$p) {
     try {
