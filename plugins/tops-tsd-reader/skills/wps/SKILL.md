@@ -53,12 +53,43 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "<skill目录>/scripts/read_
 
 `-Cleanup` 会删掉 `-OutDir` 整个目录；如果之前用过自定义 `-OutDir`，清理时用同一个值传进去。
 
+## 输出格式
+
+每个 txt 第一行是 `=== SOURCE: <路径> (<扩展名>) ===`，之后按文件类型分节，正文顺序与原文档一致。
+
+**Word** 正文按文档顺序输出，再跟两个附加节：
+
+```
+=== OUTLINE ===                                  标题大纲，按 OutlineLevel 缩进
+=== HEADER / FOOTER / FOOTNOTE / COMMENT ===     页眉、页脚、脚注、尾注、批注
+```
+
+正文里的表格转成 TSV：单元格间制表符、行间换行；`[PAGE BREAK]` 标记分页符；`[OBJECT]` 标记内嵌对象（图片、图表、公式等只有占位，没有内容）。
+
+**Excel** 每个工作表一节：
+
+```
+=== SHEET: 名称 (hidden) ===     仅隐藏/深度隐藏表带标记，仍会写出
+```
+
+单元格之间制表符。日期按单元格的 `NumberFormat` 还原成 `yyyy-MM-dd HH:mm:ss`（纯时间格式输出 `HH:mm:ss`），非日期数字保留原值。含制表符、换行或引号的单元格按 TSV 规范加双引号包裹、内部引号翻倍。
+
+**PowerPoint** 每页一节：
+
+```
+=== SLIDE N ===
+[TABLE] ... [/TABLE]     表格转 TSV
+[NOTES] ...              演讲者备注
+```
+
+组合形状（Group）会递归展开，标题、正文、文本框按形状顺序输出。
+
 ## 硬性约束
 
 1. **一个文件一个应用实例**。同一实例连续打开多个加密文件，第二个起会把进程搞崩（`RPC 服务器不可用 0x800706BA`），之后全部报"未将对象引用设置到对象的实例"。这是最容易踩的坑。
 2. **脚本保持纯 ASCII**。PowerShell 5.1 把无 BOM 的 .ps1 按 ANSI 解析，脚本里写中文会乱码；中文路径交给脚本内部 `Get-ChildItem` 递归枚举，不要在命令行里拼。
-3. **多维数组索引要加括号**：`$arr[($r-1),($c-1)]`。写成 `$arr[$r-1,$c-1]` 会被解析成数组减法，报 `op_Subtraction`。
-4. **Excel 取 `Value2`**。WPS 的 COM 上 `Range.Text`、`Text2()` 会返回 `DBNull`。
+3. **WPS 返回的数组下界是 1**。`Range.Value2`、`Range.NumberFormat` 回来的是下界为 1 的 `Object[,]`，用 PowerShell 的 `$arr[$r-1,$c-1]` 会整体错位（还会把索引算成数组减法报 `op_Subtraction`）。脚本用 `GetValue()` 配合 `GetLowerBound()` 取值，不要改回中括号索引。
+4. **Excel 取 `Value2`，日期靠 `NumberFormat`**。WPS 的 COM 上 `Range.Text`、`Text2()` 返回 `DBNull`；混合格式区域的 `Range.NumberFormat` 整体读回来是 `null`，必须退回逐格读 `Cells.Item($r,$c).NumberFormat`，否则日期会以序列号输出。
 5. 一律只读打开，不保存、不回写原文件。
 6. 单文件卡住时 `taskkill /F /IM wps.exe`（表格是 `et.exe`）后重试。
 7. **用完即删**。输出的是解密后的明文，任务结束（含中途放弃）都要执行一次 `-Cleanup`，否则 `%TEMP%\tsd_read` 会一直堆积明文文件。
@@ -68,4 +99,5 @@ powershell -NoProfile -ExecutionPolicy Bypass -File "<skill目录>/scripts/read_
 - 只处理使用者有权访问的文档。本技能是"用白名单程序打开"，不是破解加密。
 - 不要尝试直接解密字节，不要调用任何解密/导出接口。
 - 读不出来就如实报告，不要按文件名猜测内容。
-- 提取结果是纯文本：表格结构、图片、页眉页脚会丢失；Excel 日期可能显示为序列号。需要精确版式时人工核对原文件。
+- 仍然是**文本提取**，精度到"结构"而不是"版式"。已保留：段落顺序、Word 表格的行列、标题层级、页眉页脚、脚注尾注、批注、Excel 的隐藏表与日期、PPT 的组合形状 / 表格 / 备注。
+- 仍会丢失：图片、图表、形状里的公式与 SmartArt 内容（只有 `[OBJECT]` 占位）、Word 的合并单元格边界与单元格内换行、Excel 公式文本（只给计算结果）与单元格批注、PPT 的动画与母版元素。需要精确版式时人工核对原文件。
