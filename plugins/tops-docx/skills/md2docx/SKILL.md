@@ -1,6 +1,6 @@
 ---
 name: md2docx
-description: 把 markdown 文档按公司 Q/DX 技术文档底稿转换为 Word 文档。需要把 prd/hld/lld/um 等 markdown 交付给 Word 读者时使用。底稿提供封面、目次、分节版式与全部样式，正文结构与内容来自 markdown。
+description: 把 markdown 文档按公司 Q/DX 技术文档底稿转换为 Word 文档。需要把 prd/hld/lld 系列/um 等 markdown 交付给 Word 读者时使用。底稿提供封面、目次、分节版式与全部样式，正文结构与内容来自 markdown。
 ---
 
 # Markdown 转公司标准 Word 文档（md2docx）
@@ -94,7 +94,7 @@ python "E:/Github/pts-cluade-plugins/plugins/tops-docx/skills/md2docx/scripts/md
 
 ### frontmatter
 
-文件顶部可带 YAML frontmatter（`tops-docx` 插件的四个文档技能默认会写入）：
+文件顶部可带 YAML frontmatter（`tops-docx` 插件各文档技能默认会写入）：
 
 ```yaml
 ---
