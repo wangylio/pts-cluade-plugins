@@ -1,5 +1,5 @@
 {
   "name": "tops-docx",
   "description": "文档撰写与转换插件，提供 prd、hld、lld 系列（数据库/接口/模块）、um 文档生成技能与 md2docx 转换技能",
-  "version": "1.2.0"
+  "version": "1.3.0"
 }
