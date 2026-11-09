@@ -19,7 +19,7 @@
     },
     {
       "name": "tops-docx",
-      "description": "文档撰写与转换插件，提供 prd、hld、lld 系列（数据库/接口/模块）、um 文档生成技能与 md2docx 转换技能",
+      "description": "文档撰写与转换插件，提供 prd 系列（prd-single 单文档、prd-suite 多文档集）、hld、lld 系列（数据库/接口/模块）、um 文档生成技能与 md2docx 转换技能",
       "source": "./plugins/tops-docx"
     },
     {

@@ -20,7 +20,7 @@ claude plugin install tops-tsd-reader@pts-claude-plugins --scope project
 
 - **tops-encoding** — 文件编码处理插件，用于处理读写文件过程中的文件编码问题
 - **tops-git** — GitLab 代码管理插件，提供 `commit`（规范提交代码）与 `push`（提交并推送代码）两个技能
-- **tops-docx** — 文档撰写与转换插件，提供 `prd`、`hld`、`um` 与 LLD 系列（`lld-database` 数据库设计、`lld-api` 接口设计、`lld-module` 模块设计）文档生成技能（输出 markdown），以及 `md2docx` 转换技能（按 docx 模板样式生成 Word 文档）
+- **tops-docx** — 文档撰写与转换插件，提供 PRD 文档生成技能（`prd-single` 单文档描述全部需求、`prd-suite` 总体文档 + 迭代分册的多文档集）、`hld`、`um` 与 LLD 系列（`lld-database` 数据库设计、`lld-api` 接口设计、`lld-module` 模块设计）文档生成技能（输出 markdown），以及 `md2docx` 转换技能（按 docx 模板样式生成 Word 文档）
 - **tops-tsd-reader** — TSD 加密 Office 文档读取插件，提供 `wps` 技能（通过 WPS COM 打开白名单文档并提取正文）
 
 ## 开发说明
